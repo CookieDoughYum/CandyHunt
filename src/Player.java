@@ -7,21 +7,22 @@ import javax.imageio.ImageIO;
 
 public class Player extends GameObject{
 	public static BufferedImage image;
-	public static boolean needImage = true;
-	public static boolean gotImage = false;	
 	
 	Player(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
 		speed=10;
-		try {
-			image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+			//image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+		
 	}
 	
+	public int getX() {
+		return this.x;
+	}
+	public int getY() {
+		return this.y;
+	}
 	 public void right() {
 	        x+=speed;
 	    }
@@ -34,13 +35,15 @@ public class Player extends GameObject{
 	 public void up() {
 	        y+=speed;
 	    }
+	 
+	 
 	void draw(Graphics g) {
 		 g.setColor(Color.BLUE);
-	     if (gotImage) {
-	    		g.drawImage(image, x, y, width, height, null);
-	    	} else {
+	
+	    	//	g.drawImage(image, x, y, width, height, null);
+	    	
 	    		g.setColor(Color.BLUE);
 	    		g.fillRect(x, y, width, height);
 	    	}
-	}
+	
 }
