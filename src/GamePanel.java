@@ -29,7 +29,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage image;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
-
 	@Override
 	public void paintComponent(Graphics g) {
 		if (currentState == MENU) {
@@ -87,6 +86,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawImage(image, 0, 0, CandyHunt.width, CandyHunt.height, null);
 		m.draw(g);
 		g.drawString(" Score " + m.getScore(), 30, 30);
+		for(int i=0; i<16; i++) {
+			for(int j=0; j<10; j++) {
+				g.drawRect(i*p.width, j*p.height, p.width, p.height);
+			}
+		}
 	}
 
 	void drawEndState(Graphics g) {
@@ -113,7 +117,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (currentState == END) {
 			updateEndState();
 		}
-		System.out.println("action");
 		repaint();
 	}
 
@@ -162,6 +165,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			//m.addProjectile(p.getCandy());
+			System.out.println(m.checkForTreasure());
 		}
 	}
 

@@ -6,15 +6,20 @@ import java.util.Random;
 
 public class ObjectManager {
 Player p;
-TreasureMap TreasureMap;
+TreasureMap treasureMap=TreasureMap.initializeMap1();
 public boolean checkForTreasure() {
 	int playerX=p.getX();
 	int playerY=p.getY();
 	int i=playerX/p.width;
 	int j=playerY/p.height;
-	if(TreasureMap.treasureLocations[i][j]==1) {
-		
+	System.out.println(i+","+j);
+	if(treasureMap.treasureLocations[i][j]==1) {
+		return true;
 	}
+	else {
+		return false;
+	}
+	
 }
 Random a=new Random();
 int score=0;
