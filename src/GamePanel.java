@@ -21,10 +21,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font spaceFont;
 	Font gameOver;
 	Font enemies;
+	Font scoreFont;
 	Font restart;
 	Timer frameDraw;
 	Timer alienSpawn;
-	Player p= new Player(250, 700, 50, 50);
+	Player p= new Player(250, 300, 50, 50);
 	ObjectManager m = new ObjectManager(p);
 	public static BufferedImage image;
 	public static boolean needImage = true;
@@ -44,7 +45,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		titleFont = new Font("Arial", Font.PLAIN, 40);
 		enterFont = new Font("Arial", Font.PLAIN, 20);
 		spaceFont = new Font("Arial", Font.PLAIN, 20);
-		gameOver = new Font("Arial", Font.PLAIN, 40);
+		scoreFont = new Font("Arial", Font.PLAIN, 50);
 		enemies = new Font("Arial", Font.PLAIN, 20);
 		restart = new Font("Arial", Font.PLAIN, 20);
 		frameDraw = new Timer(1000 / 60, this);
@@ -82,15 +83,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void drawGameState(Graphics g) {
-		loadImage("space.png");
-		g.drawImage(image, 0, 0, CandyHunt.width, CandyHunt.height, null);
+		//g.drawImage(image, 0, 0, CandyHunt.width, CandyHunt.height, null);
 		m.draw(g);
-		g.drawString(" Score " + m.getScore(), 30, 30);
-		for(int i=0; i<16; i++) {
-			for(int j=0; j<10; j++) {
-				g.drawRect(i*p.width, j*p.height, p.width, p.height);
-			}
-		}
+		g.setFont(scoreFont);
+		g.drawString(" Score: " + m.getScore(), 30, 43);
 	}
 
 	void drawEndState(Graphics g) {
@@ -137,9 +133,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				currentState++;
 				if (currentState == GAME) {
 					startGame();
-				}
-				if (currentState == END) {
-					alienSpawn.stop();
 				}
 			}
 		}

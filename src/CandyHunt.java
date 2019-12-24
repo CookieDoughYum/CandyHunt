@@ -6,8 +6,8 @@ import javax.swing.JPanel;
 public class CandyHunt{
 	GamePanel gp;
 	JFrame frame;
-	public static final int width=500;
-	public static final int height=800;
+	public static final int width=803;
+	public static final int height=523;
 public static void main(String[] args) {
 	CandyHunt ch=new CandyHunt();
 	ch.setup();
