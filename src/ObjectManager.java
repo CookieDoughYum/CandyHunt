@@ -16,13 +16,17 @@ public boolean checkForTreasure() {
 	//System.out.println(i+","+j);
 	//System.out.println(treasureMap.treasureLocations[i][j]);
      if(treasureMap.treasureLocations[i][j]==1) {
+    	 treasureMap.treasureLocations[i][j]=0;
+    	 System.out.println("true");
 		return true;
 	}
 	else {
+		System.out.println("false");
 		return false;
 	}
-	
 }
+
+
 Random a=new Random();
 int score=0;
 
@@ -30,13 +34,18 @@ int getScore() {
 	return score;
 }
 
+public void setScore(int score) {
+	this.score = score;
+}
+
+
+
 ObjectManager(Player p){
 	this.p=p;
 }
 
 void update() {
 	p.update();
-	checkForTreasure();
 }
 
 void draw(Graphics g) {
@@ -47,7 +56,7 @@ void draw(Graphics g) {
 				g.setColor(Color.red);
 				g.fillRect(i*p.width, j*p.height, p.width, p.height);
 			}
-			g.setColor(Color.blue);
+			//g.setColor(Color.blue);
 			g.drawRect(i*p.width, j*p.height, p.width, p.height);
 		}
 	}

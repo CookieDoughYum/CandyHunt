@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -48,6 +49,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		scoreFont = new Font("Arial", Font.PLAIN, 50);
 		enemies = new Font("Arial", Font.PLAIN, 20);
 		restart = new Font("Arial", Font.PLAIN, 20);
+		gameOver= new Font("Arial", Font.PLAIN, 35);
 		frameDraw = new Timer(1000 / 60, this);
 		frameDraw.addActionListener(this);
 		frameDraw.start();
@@ -65,7 +67,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateEndState() {
-
+  
 	}
 
 	void drawMenuState(Graphics g) {
@@ -90,17 +92,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void drawEndState(Graphics g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.YELLOW);
 		g.fillRect(0, 0, CandyHunt.width, CandyHunt.height);
 		g.setFont(gameOver);
 		g.setColor(Color.BLACK);
-		g.drawString("Game Over", 200, 200);
-		g.setFont(enemies);
-		g.setColor(Color.BLACK);
-		g.drawString(" You killed " + m.getScore() + " enemies ", 200, 400);
-		g.setFont(restart);
-		g.setColor(Color.BLACK);
-		g.drawString("Press ENTER to restart", 150, 700);
+		g.drawString("Congratulations! You found all of the treasure!", 50, 200);
 	}
 
 	@Override
@@ -128,6 +124,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			if (currentState == END) {
 				p = new Player(250, 700, 50, 50);
 				m = new ObjectManager(p);
+			    m.score=0;
  				currentState = MENU;
 			} else {
 				currentState++;
@@ -158,7 +155,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			//m.addProjectile(p.getCandy());
-			System.out.println(m.checkForTreasure());
+			if(m.checkForTreasure()) {
+				int hemp=m.getScore();
+				m.setScore(++hemp);
+			}
+			if(m.score==13) {
+				currentState=END;	
+			}
 		}
 	}
 
