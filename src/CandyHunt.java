@@ -14,7 +14,7 @@ public static void main(String[] args) {
 }
 CandyHunt(){
 	this.frame=new JFrame();
-	this.gp=new GamePanel();
+	this.gp=new GamePanel(frame);
 }
 void setup() {
 	frame.add(gp);

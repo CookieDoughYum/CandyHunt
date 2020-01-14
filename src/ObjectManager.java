@@ -53,7 +53,7 @@ void draw(Graphics g) {
 	for(int i=0; i<16; i++) {
 		for(int j=0; j<10; j++) {
 			if(treasureMap.treasureLocations[j][i]==1) {
-				g.setColor(Color.red);
+			g.setColor(Color.red);
 				g.fillRect(i*p.width, j*p.height, p.width, p.height);
 			}
 			//g.setColor(Color.blue);

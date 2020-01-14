@@ -8,6 +8,8 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -26,6 +28,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font restart;
 	Timer frameDraw;
 	Timer alienSpawn;
+	JPanel panel=new JPanel();
+	JButton button;
+	JButton button1;
+	JFrame frame;
 	Player p= new Player(250, 300, 50, 50);
 	ObjectManager m = new ObjectManager(p);
 	public static BufferedImage image;
@@ -42,7 +48,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 	}
 
-	GamePanel() {
+	GamePanel(JFrame frame) {
+		this.frame=frame;
 		titleFont = new Font("Arial", Font.PLAIN, 40);
 		enterFont = new Font("Arial", Font.PLAIN, 20);
 		spaceFont = new Font("Arial", Font.PLAIN, 20);
@@ -53,6 +60,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		frameDraw = new Timer(1000 / 60, this);
 		frameDraw.addActionListener(this);
 		frameDraw.start();
+		button=new JButton("Play Again");
+		button.addActionListener(this);
+		button1=new JButton("Exit");
+		button.addActionListener(this);
 	}
 
 	void updateMenuState() {
@@ -65,9 +76,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			currentState = END;
 		}
 	}
-
 	void updateEndState() {
-  
+  if(currentState==END) {
+	  panel.add(button);
+	  panel.add(button1);
+	  this.add(panel);
+	  frame.setSize(CandyHunt.width+1, CandyHunt.height);
+  }
 	}
 
 	void drawMenuState(Graphics g) {
@@ -75,7 +90,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, CandyHunt.width, CandyHunt.height);
 		g.setFont(titleFont);
 		g.setColor(Color.YELLOW);
-		g.drawString("LEAGUE INVADERS", 50, 100);
+		g.drawString("WELCOME TO CANDY HUNT", 50, 100);
 		g.setFont(enterFont);
 		g.setColor(Color.YELLOW);
 		g.drawString("Press ENTER to start", 175, 350);
@@ -110,6 +125,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			updateEndState();
 		}
 		repaint();
+		if(e.getSource()==button) {
+			m.setScore(0);
+			currentState=GAME;
+		}
 	}
 
 	@Override

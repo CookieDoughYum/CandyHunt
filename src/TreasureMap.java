@@ -38,7 +38,7 @@ public class TreasureMap{
 	}
 	
 	void draw(Graphics g) {
-		 g.setColor(Color.BLUE);
+		 g.setColor(Color.RED);
 	    		g.drawImage(mapImage, 0, 0, CandyHunt.width, CandyHunt.height, null);
 	    	}
 	}

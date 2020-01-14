@@ -11,6 +11,12 @@ public class Player extends GameObject{
 		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
 		speed=10;
+		try {
+			image = ImageIO.read(new TreasureMap().getClass().getResourceAsStream("Pirate.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -35,12 +41,7 @@ public class Player extends GameObject{
 	 
 	 
 	void draw(Graphics g) {
-		 g.setColor(Color.BLUE);
-	
-	    	//	g.drawImage(image, x, y, width, height, null);
-	    	
-	    		g.setColor(Color.BLUE);
-	    		g.fillRect(x, y, width, height);
+		g.drawImage(image, x, y, width, height, null);
 	    	}
 	
 }
