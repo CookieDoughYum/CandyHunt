@@ -28,15 +28,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font restart;
 	Timer frameDraw;
 	Timer alienSpawn;
-	JPanel panel=new JPanel();
+	JPanel panel = new JPanel();
 	JButton button;
 	JButton button1;
 	JFrame frame;
-	Player p= new Player(250, 300, 50, 50);
+	Player p = new Player(250, 300, 50, 50);
 	ObjectManager m = new ObjectManager(p);
 	public static BufferedImage image;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
+	public static boolean buttonPanelAdded = false;
+
 	@Override
 	public void paintComponent(Graphics g) {
 		if (currentState == MENU) {
@@ -49,21 +51,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	GamePanel(JFrame frame) {
-		this.frame=frame;
+		this.frame = frame;
 		titleFont = new Font("Arial", Font.PLAIN, 40);
 		enterFont = new Font("Arial", Font.PLAIN, 20);
 		spaceFont = new Font("Arial", Font.PLAIN, 20);
 		scoreFont = new Font("Arial", Font.PLAIN, 50);
 		enemies = new Font("Arial", Font.PLAIN, 20);
 		restart = new Font("Arial", Font.PLAIN, 20);
-		gameOver= new Font("Arial", Font.PLAIN, 35);
+		gameOver = new Font("Arial", Font.PLAIN, 35);
 		frameDraw = new Timer(1000 / 60, this);
 		frameDraw.addActionListener(this);
 		frameDraw.start();
-		button=new JButton("Play Again");
+		button = new JButton("Play Again");
 		button.addActionListener(this);
-		button1=new JButton("Exit");
-		button.addActionListener(this);
+		button1 = new JButton("Exit");
+		button1.addActionListener(this);
 	}
 
 	void updateMenuState() {
@@ -76,13 +78,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			currentState = END;
 		}
 	}
+
 	void updateEndState() {
-  if(currentState==END) {
-	  panel.add(button);
-	  panel.add(button1);
-	  this.add(panel);
-	  frame.setSize(CandyHunt.width+1, CandyHunt.height);
-  }
+		if (currentState == END) {
+			if (!buttonPanelAdded) {
+			panel.add(button);
+			panel.add(button1);
+				this.add(panel);
+				frame.setSize(CandyHunt.width + 1, CandyHunt.height);
+			}
+		}
 	}
 
 	void drawMenuState(Graphics g) {
@@ -100,7 +105,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void drawGameState(Graphics g) {
-		//g.drawImage(image, 0, 0, CandyHunt.width, CandyHunt.height, null);
+		// g.drawImage(image, 0, 0, CandyHunt.width, CandyHunt.height, null);
 		m.draw(g);
 		g.setFont(scoreFont);
 		g.drawString(" Score: " + m.getScore(), 30, 43);
@@ -124,10 +129,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (currentState == END) {
 			updateEndState();
 		}
+		button.setFocusable(false);
+		button1.setFocusable(false);
 		repaint();
-		if(e.getSource()==button) {
+		if (e.getSource() == button) {
 			m.setScore(0);
-			currentState=GAME;
+			p = new Player(250, 300, 50, 50);
+			m = new ObjectManager(p);
+			 currentState=GAME;
+			this.remove(panel);
+		}
+		if(e.getSource()==button1) {
+			System.exit(0);
 		}
 	}
 
@@ -143,8 +156,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			if (currentState == END) {
 				p = new Player(250, 700, 50, 50);
 				m = new ObjectManager(p);
-			    m.score=0;
- 				currentState = MENU;
+				m.score = 0;
+				currentState = MENU;
 			} else {
 				currentState++;
 				if (currentState == GAME) {
@@ -173,13 +186,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			//m.addProjectile(p.getCandy());
-			if(m.checkForTreasure()) {
-				int hemp=m.getScore();
+			// m.addProjectile(p.getCandy());
+			if (m.checkForTreasure()) {
+				int hemp = m.getScore();
 				m.setScore(++hemp);
 			}
-			if(m.score==13) {
-				currentState=END;	
+			if (m.score == 13) {
+				currentState = END;
 			}
 		}
 	}
@@ -203,7 +216,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void startGame() {
-		
+
 	}
 
 }
