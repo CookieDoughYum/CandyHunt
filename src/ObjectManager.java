@@ -8,14 +8,6 @@ import java.util.Random;
 public class ObjectManager {
 Player p;
 TreasureMap treasureMap=TreasureMap.initializeMap1();
-void generateRandomMap() {
-	//t=new TreasureMap();
-	Random r=new Random();
-	int candyLimit=13;
-	while(candyLimit>0) {
-		int x
-	}
-}
 public boolean checkForTreasure() {
 	int playerX=p.getX()+(p.width/2);
 	int playerY=p.getY()+(p.height/2);

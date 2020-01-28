@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font enemies;
 	Font scoreFont;
 	Font restart;
+	Font hintFont;
 	Timer frameDraw;
 	Timer alienSpawn;
 	JPanel panel = new JPanel();
@@ -56,6 +57,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		enterFont = new Font("Arial", Font.PLAIN, 20);
 		spaceFont = new Font("Arial", Font.PLAIN, 20);
 		scoreFont = new Font("Arial", Font.PLAIN, 50);
+		hintFont = new Font("Arial", Font.PLAIN, 27);
 		enemies = new Font("Arial", Font.PLAIN, 20);
 		restart = new Font("Arial", Font.PLAIN, 20);
 		gameOver = new Font("Arial", Font.PLAIN, 35);
@@ -109,6 +111,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		m.draw(g);
 		g.setFont(scoreFont);
 		g.drawString(" Score: " + m.getScore(), 30, 43);
+		g.setFont(hintFont);
+		g.drawString("Press h for hint", 575, 475);
 	}
 
 	void drawEndState(Graphics g) {
@@ -138,6 +142,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			m = new ObjectManager(p);
 			 currentState=GAME;
 			this.remove(panel);
+			m.treasureMap=TreasureMap.GenerateRandomMap();
 		}
 		if(e.getSource()==button1) {
 			System.exit(0);
@@ -195,8 +200,46 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				currentState = END;
 			}
 		}
+		if (e.getKeyCode() == KeyEvent.VK_H) {
+		      giveHint();
+		}
 	}
-
+	void giveHint() {
+		int x=0;
+		int y=0;
+		int[][] currentMap=m.treasureMap.treasureLocations;
+		outer:for(int i=0; i<currentMap.length; i++) {
+			for(int j=0; j<currentMap[i].length; j++) {
+			if(currentMap[i][j]==1) {
+				x=i;
+				y=j;
+				break outer;
+			}
+			}
+		}
+		if(x>=0 && x<=6) {
+			if(y>=0 && y<=4) {
+				JOptionPane.showMessageDialog(null, "Look toward the upper left side of the ship");
+			}
+			if(y>=5 && y<=10) {
+				JOptionPane.showMessageDialog(null, "Look toward the lower left side of the ship");
+			}
+		}
+		if(x>=7 && x<=11) {
+			if(y<=10 && y>=5) {
+				JOptionPane.showMessageDialog(null, "Look around the steering wheel");
+			}
+			if(y<=4 && y>=0) {
+				JOptionPane.showMessageDialog(null, "Look around the upper middle part of the ship");
+			}
+		}
+		if(x>=12 && x<=16) {
+			if(y>=0 && y<=10) {
+				JOptionPane.showMessageDialog(null, "Look around the right side of the ship");
+			}
+		}
+		
+	}
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
