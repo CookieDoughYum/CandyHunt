@@ -36,6 +36,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Player p = new Player(250, 300, 50, 50);
 	ObjectManager m = new ObjectManager(p);
 	public static BufferedImage image;
+	public static BufferedImage Candy1;
+	public static BufferedImage Candy2;
+	public static BufferedImage Candy3;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
 	public static boolean buttonPanelAdded = false;
@@ -192,9 +195,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			// m.addProjectile(p.getCandy());
-			if (m.checkForTreasure()) {
+			if (currentState==GAME && m.checkForTreasure()) {
 				int hemp = m.getScore();
 				m.setScore(++hemp);
+			}
+			else if(currentState==MENU) {
+				JOptionPane.showMessageDialog(null, "Try to find as many candies on the treasure map as you can. Use the arrow keys to move. Press SPACE to pick up a candy, and press 'h' for a hint. Your goal is to try to find all 13 candies");
 			}
 			if (m.score == 13) {
 				currentState = END;
@@ -203,6 +209,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_H) {
 		      giveHint();
 		}
+		
 	}
 	void giveHint() {
 		int x=0;
@@ -210,9 +217,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		int[][] currentMap=m.treasureMap.treasureLocations;
 		outer:for(int i=0; i<currentMap.length; i++) {
 			for(int j=0; j<currentMap[i].length; j++) {
-			if(currentMap[i][j]==1) {
-				x=i;
-				y=j;
+			if(currentMap[i][j]>0) {
+				y=i;
+				x=j;
 				break outer;
 			}
 			}

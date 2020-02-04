@@ -2,8 +2,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
     
 public class ObjectManager {
 Player p;
@@ -15,7 +18,7 @@ public boolean checkForTreasure() {
 	int j=playerX/p.width;
 	//System.out.println(i+","+j);
 	//System.out.println(treasureMap.treasureLocations[i][j]);
-     if(treasureMap.treasureLocations[i][j]==1) {
+     if(treasureMap.treasureLocations[i][j]>0) {
     	 treasureMap.treasureLocations[i][j]=0;
     	 System.out.println("true");
 		return true;
@@ -52,12 +55,16 @@ void draw(Graphics g) {
 	treasureMap.draw(g);
 	for(int i=0; i<16; i++) {
 		for(int j=0; j<10; j++) {
-			if(treasureMap.treasureLocations[j][i]==1) {
-			g.setColor(Color.red);
-				g.fillRect(i*p.width, j*p.height, p.width, p.height);
+			if(treasureMap.treasureLocations[j][i]>0) {
+				try {
+					GamePanel.Candy1 = ImageIO.read(new TreasureMap().getClass().getResourceAsStream("Candy.png"));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			//g.setColor(Color.blue);
-			g.drawRect(i*p.width, j*p.height, p.width, p.height);
+			//g.drawRect(i*p.width, j*p.height, p.width, p.height);
 		}
 	}
 	p.draw(g);
