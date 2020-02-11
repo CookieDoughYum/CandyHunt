@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -55,6 +56,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	GamePanel(JFrame frame) {
+		try {
+			GamePanel.Candy1 = ImageIO.read(new TreasureMap().getClass().getResourceAsStream("Ing/Candy.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.frame = frame;
 		titleFont = new Font("Arial", Font.PLAIN, 40);
 		enterFont = new Font("Arial", Font.PLAIN, 20);
@@ -116,6 +123,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString(" Score: " + m.getScore(), 30, 43);
 		g.setFont(hintFont);
 		g.drawString("Press h for hint", 575, 475);
+		//for(int i=0; i<16; i++) {
+			//for(int j=0; j<10; j++) {
+				//g.drawRect(i*p.width, j*p.height, p.width, p.height);
+			//}
+		//}
+		
 	}
 
 	void drawEndState(Graphics g) {
@@ -174,7 +187,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			if (p.y >= p.speed) {
+			if (p.y >= p.speed-10) {
 				p.y -= 10;
 			}
 		}
@@ -184,12 +197,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			if (p.x >= p.speed) {
+			if (p.x >= p.speed-20) {
 				p.x -= 10;
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			if (p.x <= (CandyHunt.width - p.width) - p.speed) {
+			if (p.x <= (CandyHunt.width - p.width) - p.speed+20) {
 				p.x += 10;
 			}
 		}

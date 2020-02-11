@@ -12,8 +12,8 @@ public class ObjectManager {
 Player p;
 TreasureMap treasureMap=TreasureMap.initializeMap1();
 public boolean checkForTreasure() {
-	int playerX=p.getX()+(p.width/2);
-	int playerY=p.getY()+(p.height/2);
+	int playerX=p.getX()+(p.width/1);
+	int playerY=p.getY()+(p.height/1);
 	int i=playerY/p.height;
 	int j=playerX/p.width;
 	//System.out.println(i+","+j);
@@ -56,18 +56,13 @@ void draw(Graphics g) {
 	for(int i=0; i<16; i++) {
 		for(int j=0; j<10; j++) {
 			if(treasureMap.treasureLocations[j][i]>0) {
-				try {
-					GamePanel.Candy1 = ImageIO.read(new TreasureMap().getClass().getResourceAsStream("Candy.png"));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				g.drawImage(GamePanel.Candy1, i*p.width, j*p.height, p.width-46, p.height-46, null);
+				//g.fillRect(i*p.width, j*p.height, p.width, p.height);
 			}
-			//g.setColor(Color.blue);
-			//g.drawRect(i*p.width, j*p.height, p.width, p.height);
 		}
 	}
 	p.draw(g);
+	
 }
 
 	
