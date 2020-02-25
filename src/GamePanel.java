@@ -239,10 +239,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		if(x>=0 && x<=6) {
 			if(y>=0 && y<=4) {
-				JOptionPane.showMessageDialog(null, "Look toward the upper left side of the ship");
+				JOptionPane.showMessageDialog(null, "Look toward the upper left or middle side of the ship");
 			}
 			if(y>=5 && y<=10) {
-				JOptionPane.showMessageDialog(null, "Look toward the lower left side of the ship");
+				JOptionPane.showMessageDialog(null, "Look toward the lower left or middle side of the ship");
 			}
 		}
 		if(x>=7 && x<=11) {
