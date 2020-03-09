@@ -123,11 +123,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString(" Score: " + m.getScore(), 30, 43);
 		g.setFont(hintFont);
 		g.drawString("Press h for hint", 575, 475);
-		for(int i=0; i<16; i++) {
-			for(int j=0; j<10; j++) {
-				g.drawRect(i*p.width, j*p.height, p.width, p.height);
-			}
-		}
+		//for(int i=0; i<16; i++) {
+			//for(int j=0; j<10; j++) {
+				//g.drawRect(i*p.width, j*p.height, p.width, p.height);
+			//}
+		//}
 		
 	}
 
@@ -220,7 +220,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_H) {
-			System.out.println("Hi");
+			//System.out.println("Hi");
 		      giveHint();
 		}
 		
@@ -246,18 +246,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				JOptionPane.showMessageDialog(null, "Look toward the lower left side of the ship");
 			}
 			else {
-				System.out.println("y null");
+				//System.out.println( x + " " + y );
 			}
 		}
 		else if(x>=4 && x<=7) {
 			if(y>=0 && y<=4) {
 				JOptionPane.showMessageDialog(null, "Look toward the upper middle left part of the ship");
 			}
-			else if(y>=5 && y>=10) {
+			else if(y>=5 && y<=10) {
 				JOptionPane.showMessageDialog(null, "Look toward the lower middle left part of the ship");
 			}
 			else {
-				System.out.println("y null");
+				//System.out.println( x + " " + y );
 			}
 		}
 		else if(x>=8 && x<=11) {
@@ -268,7 +268,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				JOptionPane.showMessageDialog(null, "Look toward the lower middle right part of the ship");
 			}
 			else {
-				System.out.println("y null");
+				//System.out.println( x + " " + y );
 			}
 		}
 		else if(x>=12 && x<=15) {
@@ -279,11 +279,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				JOptionPane.showMessageDialog(null, "Look toward the lower right side of the ship");
 			}
 			else {
-				System.out.println("y null");
+				//System.out.println( x + " " + y );
 			}
 		}
 		else {
-			System.out.println("x null");
+			//System.out.println( x + " " + y);
 		}
 	}
 	@Override

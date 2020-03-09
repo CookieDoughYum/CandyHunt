@@ -59,7 +59,7 @@ void draw(Graphics g) {
 		for(int j=0; j<10; j++) {
 			if(treasureMap.treasureLocations[j][i]>0) {
 				//important
-				g.drawImage(GamePanel.Candy1, (i*p.width)+25, (j*p.height)+25, p.width-10, p.height-10, null);
+				g.drawImage(GamePanel.Candy1, (i*p.width)+25, (j*p.height)+25, p.width-46, p.height-46, null);
 				//g.fillRect(i*p.width, j*p.height, p.width, p.height);
 			}
 		}
